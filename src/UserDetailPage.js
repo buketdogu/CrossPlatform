@@ -37,29 +37,29 @@ export function UserDetailPage(props) {
         </View>
         <View style={styles.body}>
         <Text style={styles.title}>Credential Information</Text>
-      <Text>ID:{userData.id}</Text>
-      <Text>Name:{userData.name}</Text>
-      <Text>Username:{userData.username}</Text>
+      <Text>ID: {userData.id}</Text>
+      <Text>Name: {userData.name}</Text>
+      <Text>Username: {userData.username}</Text>
      
       
         <Text style={styles.title}>Residence Information</Text>
-      <Text>Street:{userData.address?.street}</Text>
-      <Text>Suite:{userData.address?.suite}</Text>
-      <Text>City:{userData.address?.city}</Text>
-      <Text>Zipcode:{userData.address?.zipcode}</Text>
+      <Text>Street: {userData.address?.street}</Text>
+      <Text>Suite: {userData.address?.suite}</Text>
+      <Text>City: {userData.address?.city}</Text>
+      <Text>Zipcode: {userData.address?.zipcode}</Text>
       
       
       <Text style={styles.title}>Geolocation</Text>
-      <Text>Lat:{userData.address?.geo.lat}</Text>
-      <Text>Lng:{userData.address?.geo.lng}</Text>
+      <Text>Lat: {userData.address?.geo.lat}</Text>
+      <Text>Lng: {userData.address?.geo.lng}</Text>
       
       
       <Text style={styles.title}>Contact Information</Text>
-      <Text>Phone:{userData.phone}</Text>
-      <Text>Website:{userData.website}</Text>
-      <Text>Company Name:{userData.company?.name}</Text>
-      <Text>Catch Phrase:{userData.company?.catchPhrase}</Text>
-      <Text>BS:{userData.company?.bs}</Text>
+      <Text>Phone: {userData.phone}</Text>
+      <Text>Website: {userData.website}</Text>
+      <Text>Company Name: {userData.company?.name}</Text>
+      <Text>Catch Phrase: {userData.company?.catchPhrase}</Text>
+      <Text>BS: {userData.company?.bs}</Text>
       </View>
       <View style={styles.footer}>
           <View style={styles.buttonContainer}>
