@@ -52,12 +52,7 @@ export function UserListPage(props) {
                 <View style={styles.buttonContainer}>
                 <Button onPress={()=> props.navigation.navigate("PostListPage")} title="Post List" color={"black"}></Button>
                 </View>
-                <View style={styles.buttonContainer}>
-                <Button onPress={()=> props.navigation.navigate("AlbumListPage")} title="Album List" color={"black"}></Button>
-                </View>
-                <View style={styles.buttonContainer}>
-                <Button onPress={()=> props.navigation.navigate("ToDoListPage")} title="To Do List" color={"black"}></Button>
-                </View>
+                
                 </View>
                 </View>
       <StatusBar style="auto" />
