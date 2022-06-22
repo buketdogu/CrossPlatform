@@ -13,7 +13,6 @@ export function UserDetailPage(props) {
     const apiURL = `https://jsonplaceholder.typicode.com/users/${props.route.params.userid}`;
 
     const [userData, setuserData] = useState([]);
-   
     
     
     
@@ -28,8 +27,9 @@ export function UserDetailPage(props) {
                 
 
             })
+       
 
-    }, [])
+    })
 
   return (
     <SafeAreaView style={styles.container}>
@@ -60,12 +60,29 @@ export function UserDetailPage(props) {
       <Text>Company Name: {userData.company?.name}</Text>
       <Text>Catch Phrase: {userData.company?.catchPhrase}</Text>
       <Text>BS: {userData.company?.bs}</Text>
+
+      
+
       </View>
+
+  
       <View style={styles.footer}>
+      <View style={styles.buttonContainer}>
+        
+                <Button onPress={()=> props.navigation.navigate("ToDoListUser", {userid:userData.id} )} title="See User's To Do List" color={"black"}></Button>   
+      </View>
+      <View style={styles.buttonContainer}>
+        
+                <Button onPress={()=> props.navigation.navigate("AlbumListPage", {userid:userData.id} )} title="See User's Album List" color={"black"}></Button>   
+      </View>
           <View style={styles.buttonContainer}>
                 <Button onPress={()=> props.navigation.navigate("UserListPage")} title="Return Home" color={"black"}></Button>
       </View>
-      </View>     
+      
+      
+      </View>
+      
+
 
       <StatusBar style="auto" />
     </SafeAreaView>
@@ -96,6 +113,7 @@ const styles = StyleSheet.create({
   justifyContent:"center",
    alignItems:"center",
    width:120,
+   marginBottom: 10,
   borderRadius:10,
  },
   
