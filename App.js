@@ -9,7 +9,8 @@ import {PostListPage} from "./src/PostListPage.js";
 import {PostDetailPage} from "./src/PostDetailPage.js";
 import {AlbumListPage} from "./src/AlbumListPage";
 import {PhotoListPage} from "./src/PhotoListPage";
-import {ToDoListPage} from "./src/ToDoListPage";
+import {ToDoListUser} from "./src/ToDoListUser";
+import {CommentListPage} from "./src/CommentListPage";
 const Stack = createStackNavigator();
 
 export default function App(props) {
@@ -17,7 +18,7 @@ export default function App(props) {
     <>
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName="Home"
+          initialRouteName="UserListPage"
           headerMode={{
             headerShown: false,
           }}
@@ -29,8 +30,9 @@ export default function App(props) {
               <Stack.Screen name="PostListPage" component={PostListPage} />
               <Stack.Screen name="PostDetailPage" component={PostDetailPage} />
               <Stack.Screen name="AlbumListPage" component={AlbumListPage} />
-              <Stack.Screen name="PhotoListPage" component={PhotoListPage} />
-              <Stack.Screen name="ToDoListPage" component={ToDoListPage} />
+              <Stack.Screen name="PhotoListPage" component={PhotoListPage} /> 
+              <Stack.Screen name="ToDoListUser" component={ToDoListUser} />
+              <Stack.Screen name="CommentListPage" component={CommentListPage} />         
             </>
           
         </Stack.Navigator>
