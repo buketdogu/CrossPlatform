@@ -26,7 +26,7 @@ export function PostDetailPage(props) {
 
             })
 
-    }, [])
+    }, )
 
   return (
     <SafeAreaView style={styles.container}>
@@ -35,12 +35,14 @@ export function PostDetailPage(props) {
       <View style={styles.body}>
         
         <Text style={styles.title}>Title: {postData.title}</Text>
-        <Text>Body: {postData.body}</Text>
-        <Text>User ID: {postData.userId}</Text>
-        <Text>ID: {postData.id}</Text>
+        <Text>{postData.body}</Text>
         </View>
         <View style={styles.footer}>
+          
           <View style={styles.buttonContainer}>
+                  <Button onPress={()=> props.navigation.navigate("CommentListPage", {postsid:postData.id})} title="Comments For This Post" color={"black"}></Button>   
+      </View>
+      <View style={styles.buttonContainer}>
                 <Button onPress={()=> props.navigation.navigate("UserListPage")} title="Return Home" color={"black"}></Button>
       </View>
       </View>
@@ -55,7 +57,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#FCFBF5',
     width: windowWidth,
     height: windowHeight,
-    
+    alignItems:"center",
+    justifyContent:"center",
     
   },
   title:{
@@ -73,6 +76,7 @@ const styles = StyleSheet.create({
    alignItems:"center",
    width:120,
   borderRadius:10,
+  marginBottom: 10,
   
  },
   body:{
