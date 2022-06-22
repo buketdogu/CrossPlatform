@@ -1,111 +1,109 @@
-import React, { Component } from 'react';
-import {
-    StyleSheet,
-    View,
-    ActivityIndicator,
-    FlatList,
-    Text,
-    TouchableOpacity
-} from "react-native";
+import { StatusBar } from 'expo-status-bar';
+import React, { useEffect, useState } from 'react';
+import reactDom from 'react-dom';
+import { StyleSheet, Text, View, FlatList, TouchableHighlight,SafeAreaView,Button} from 'react-native';
 
-class CommentListPage extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            loading: false,
-            fromFetch: false,
-            dataSource: [],
-            displayBody: []
-        };
-    }
-    static getDerivedStateFromProps(props, state) {
-        let _postid = state.postid;
-        if (typeof props.postid !== 'undefined') {
-            _postid = props.postid
-        }
-        if (_postid != state.postid) {
-            console.log('changed postid in CommentListPage : ', _postid);
-            //this.goForFetch() // Error, so =>componentDidUpdate(prevProps)
-        }
-        return { postid: _postid };
-    }
-    componentDidUpdate(prevProps, prevState) { // does not detecting
-        if (prevState.postid !== this.state.postid) {
-            console.log('change detected postid in CommentList : ', this.state.postid);
-            let fetchUrl = "https://jsonplaceholder.typicode.com/posts/" + this.state.postid + "/comments";
-            console.log(fetchUrl);
-            this.goForFetch(fetchUrl);
-        }
-    }
-    componentDidMount() {
-        this.goForFetch();
-    }
-    goForFetch = (fetchUrl = "https://jsonplaceholder.typicode.com/comments") => {
-        this.setState({
-            fromFetch: true,
-            loading: true,
-        })
-        console.log(fetchUrl);
-        if (typeof this.state.postid !== 'undefined') {
-            fetchUrl = "https://jsonplaceholder.typicode.com/posts/" + this.state.postid + "/comments";
-        }
-        console.log(fetchUrl);
 
-        fetch(fetchUrl)
-            .then(response => response.json())
-            .then((responseJson) => {
-                console.log('getting data from api', responseJson)
-                this.setState({
-                    loading: false,
-                    dataSource: responseJson.slice(0, 20),
-                })
+
+
+
+export function CommentListPage(props) {
+  
+
+        const apiURL = 'https://jsonplaceholder.typicode.com/comments?postId=' + props.route.params.postsid;
+     
+ 
+      const [commentsData, setcommentsData] = useState([]);
+        
+    useEffect(() => {
+
+        fetch(apiURL)
+            .then((res) => res.json())
+            .then((data) => {
+
+                setcommentsData(data);
+                
+
             })
-            .catch(error => console.log(error))
-    }
-    FlatListSeparator = () => {
-        return (
-            <View style={{
-                height: .5,
-                width: "100%",
-                backgroundColor: "rgba(0,0,0,0.5)",
-            }}
-            />
-        );
-    }
 
-    renderItem = (data) => {
-        return (
-            <TouchableOpacity
-                style={[{ padding: 10 }, data.item.id % 2 && { backgroundColor: '#ffffff' }]}
-                onPress={() => {
-                    // may be dropdown
-                    let blankArr = []
-                    blankArr[data.item.id] = 1;
-                    this.setState({
-                        displayBody: blankArr,
-                    })
-                }}
-            >
-                <Text style={{ fontWeight: 'bold', textAlign: 'left' }}>{data.item.name}</Text>
-                {this.state.displayBody[data.item.id] ? <Text style={{ paddingLeft: 10, paddingRight: 10, textAlign: 'left' }}>{data.item.body}</Text> : ''}
-                <Text style={{ color: 'gray', fontStyle: 'italic', textAlign: 'right' }}>{data.item.email}</Text>
-            </TouchableOpacity>
-        )
+    }, [])
 
-    }
-    render() {
-        const { dataSource, fromFetch, loading } = this.state
-        return (
-            <View>
-                <Text style={{ fontWeight: 'bold', textAlign: 'center' }}>
-                    {this.props.title}
-                </Text>
-                <Text style={{ color: 'gray', fontStyle: 'italic', textAlign: 'center' }}>
-                    (Click for bodies)
-                </Text>
-            </View>
-        );
-    }
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.listContainer}>
+        <FlatList
+                  data={commentsData
+                    }
+                  renderItem={({ item }) => (
+                    <>
+                    
+                      <View style={styles.row}>
+                        <Text style={styles.header}>{item.name}</Text>                
+                        <Text style={styles.font}>{item.body}</Text>  
+                        <Text style={styles.font}>{item.email}</Text>  
+                      </View>
+                      
+                    </>
+                  )}
+                  
+                />
+                <View style={styles.footer}>
+                <View style={styles.buttonContainer}>
+                <Button onPress={()=> props.navigation.navigate("UserListPage")} title="Return Home" color={"black"}></Button>
+                </View>
+                
+                </View>
+                </View>
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
 }
 
-export default CommentListPage;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor:"#FCFBF5",
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    
+  },
+  listContainer: {
+    display:"flex",
+    marginTop:30,
+    height:400,
+    width:200,
+    
+    
+  },
+  font:{
+  fontWeight:'medium',
+  margin:5,
+  borderWidth:3,
+  
+
+  },
+  header:{
+  fontWeight:'bold',
+  margin:5,
+  borderWidth:3,
+  
+
+  },
+
+ buttonContainer:{
+  justifyContent:"center",
+   alignItems:"center",
+   width:120,
+  marginTop:10,
+  borderRadius:10,
+  
+ },
+ footer:{
+  flex:1,
+  flexDirection:"column",
+  justifyContent:"flex-start",
+  alignItems:'center',
+  
+ }
+  
+});
