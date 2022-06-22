@@ -9,9 +9,9 @@ import { StyleSheet, Text, View, FlatList, TouchableHighlight,SafeAreaView,Butto
 export function AlbumListPage(props) {
   
 
-    const apiURL = 'https://jsonplaceholder.typicode.com/albums';
+    const apiURL = 'https://jsonplaceholder.typicode.com/albums?userId=' + props.route.params.userid;
 
-    const [userData, setuserData] = useState([]);
+    const [albumData, setalbumData] = useState([]);
 
     
 
@@ -22,7 +22,7 @@ export function AlbumListPage(props) {
             .then((res) => res.json())
             .then((data) => {
 
-                setuserData(data);
+                setalbumData(data);
                 
 
             })
@@ -33,11 +33,11 @@ export function AlbumListPage(props) {
     <SafeAreaView style={styles.container}>
       <View style={styles.listContainer}>
        <FlatList
-                  data={userData
+                  data={albumData
                     }
                   renderItem={({ item }) => (
                     <>
-                    <TouchableHighlight onPress={()=> props.navigation.navigate("PhotoListPage", {photoid:item.id})}>
+                    <TouchableHighlight onPress={()=> props.navigation.navigate("PhotoListPage", {albumid:item.userId})}>
                       <View style={styles.row}>
                         <Text style={styles.font}>{item.title}</Text>
                       </View>
@@ -49,15 +49,11 @@ export function AlbumListPage(props) {
                 />
                 </View>
                 <View style={styles.footer}>
+        
                 <View style={styles.buttonContainer}>
-                <Button onPress={()=> props.navigation.navigate("PostListPage")} title="Post List" color={"black"}></Button>
+                <Button onPress={()=> props.navigation.navigate("UserListPage")} title="Return Home" color={"black"}></Button>
                 </View>
-                <View style={styles.buttonContainer}>
-                <Button onPress={()=> props.navigation.navigate("UserListPage")} title="User List" color={"black"}></Button>
-                </View>
-                <View style={styles.buttonContainer}>
-                <Button onPress={()=> props.navigation.navigate("ToDoListPage")} title="To Do List" color={"black"}></Button>
-                </View>
+                
                 </View>
                 
       <StatusBar style="auto" />
@@ -76,8 +72,8 @@ const styles = StyleSheet.create({
   listContainer: {
     display:"flex",
     marginTop:30,
-    height:600,
-    width:300,
+    height:400,
+    width:200,
     
     
   },
